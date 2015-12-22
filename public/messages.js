@@ -9,7 +9,7 @@ var Messages = React.createClass({
       isPaused: false,
       length: 0
     };
-  }, 
+  },
 
   getNextPage: function() {
     var url = 'https://api.yammer.com/api/v1/messages.json?';
@@ -45,7 +45,7 @@ var Messages = React.createClass({
         window.messages = data;
       }
     });
-  },  
+  },
 
   processMessages: function(messages){
     if (messages.length == 0)
@@ -55,7 +55,7 @@ var Messages = React.createClass({
     var lastMessage = messages[messages.length - 1];
     this.setState({length: this.state.length + messages.length});
     this.setState({mostRecentDate: lastMessage.created_at});
-    this.setState({lastId: lastMessage.id});  
+    this.setState({lastId: lastMessage.id});
 
     this.saveMessages(messages);
     this.getNextMessages();
@@ -67,7 +67,7 @@ var Messages = React.createClass({
     });
     var json = items.join(",") + ',';
     $.post( "save", json );
-  },    
+  },
 
   cleanMessages: function(messages){
     return messages.map((item, i) => {
@@ -95,7 +95,7 @@ var Messages = React.createClass({
       this.pause();
     else
       this.unPause();
-  }, 
+  },
 
   pause: function(){
     this.setState({isPaused : true});
@@ -105,15 +105,12 @@ var Messages = React.createClass({
     this.setState({isPaused : false});
     setTimeout(function(){
       this.getNextMessages();
-    }.bind(this), 1000);   
+    }.bind(this), 1000);
   },
 
   render: function () {
     return (
       <div>
-        <a href={ "https://www.yammer.com/dialog/oauth?client_id=" + this.props.client_id  + "&redirect_uri=" + window.location.href + "&response_type=token" }>Login</a>
-        <div>Token: {this.state.token}</div>
-
         <h2>Messages {this.state.length}</h2>
         <div>{this.state.mostRecentDate}</div>
         <hr/>
@@ -127,5 +124,5 @@ var Messages = React.createClass({
 });
 
 ReactDOM.render(
-    <Messages client_id="l6qqulIRaKKpItaVEyxMw" redirect_uri="http://localhost:3000" />
-    , document.getElementById('content'));
+    <Messages />
+    , document.getElementById('messages'));

@@ -6,7 +6,7 @@ var Groups = React.createClass({
       token: document.location.hash.split('=')[1],
       pageIndex: 1
     };
-  }, 
+  },
 
   getNextPage: function() {
     var url = 'https://api.yammer.com/api/v1/groups.json?page=' + this.state.pageIndex;
@@ -40,7 +40,7 @@ var Groups = React.createClass({
         window.groups = data;
       }
     });
-  },  
+  },
 
   processGroups: function(groups){
 
@@ -51,13 +51,13 @@ var Groups = React.createClass({
   },
 
   saveGroups: function(groups) {
-    
+
     var items = groups.map(function(e){
       return JSON.stringify(e);
     });
     var json = items.join(",") + ',';
     $.post( "save", json );
-  },    
+  },
 
   getNextGroups: function(){
     if (this.state.isPaused)
@@ -75,7 +75,7 @@ var Groups = React.createClass({
       this.pause();
     else
       this.unPause();
-  }, 
+  },
 
   pause: function(){
     this.setState({isPaused : true});
@@ -85,7 +85,7 @@ var Groups = React.createClass({
     this.setState({isPaused : false});
     setTimeout(function(){
       this.getNextGroups();
-    }.bind(this), 1000);   
+    }.bind(this), 1000);
   },
 
   render: function () {
@@ -107,4 +107,4 @@ var Groups = React.createClass({
 
 ReactDOM.render(
     <Groups client_id="l6qqulIRaKKpItaVEyxMw" redirect_uri="http://localhost:3000" />
-    , document.getElementById('content'));
+    , document.getElementById('groups'));
