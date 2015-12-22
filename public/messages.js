@@ -1,6 +1,9 @@
-var MessageList = React.createClass({
+
+var Messages = React.createClass({
+
   getInitialState: function() {
     return {
+      token: document.location.hash.split('=')[1],
       lastId: null,
       mostRecentDate: '',
       isPaused: false,
@@ -13,7 +16,7 @@ var MessageList = React.createClass({
     if (this.state.lastId)
       url += 'older_than=' + this.state.lastId;
 
-    var token = "Bearer " + this.props.token;
+    var token = "Bearer " + this.state.token;
     $.ajax({
       url: url,
       dataType: 'json',
@@ -34,7 +37,7 @@ var MessageList = React.createClass({
     if (this.state.lastId)
       url += 'older_than=' + this.state.lastId;
 
-    var token = "Bearer " + this.props.token;
+    var token = "Bearer " + this.state.token;
     $.ajax({
       url: 'messages.json',
       dataType: 'json',
@@ -108,6 +111,9 @@ var MessageList = React.createClass({
   render: function () {
     return (
       <div>
+        <a href={ "https://www.yammer.com/dialog/oauth?client_id=" + this.props.client_id  + "&redirect_uri=" + window.location.href + "&response_type=token" }>Login</a>
+        <div>Token: {this.state.token}</div>
+
         <h2>Messages {this.state.length}</h2>
         <div>{this.state.mostRecentDate}</div>
         <hr/>
@@ -115,26 +121,11 @@ var MessageList = React.createClass({
         <button onClick={this.togglePause}>Pause</button>
         <hr/>
         <button onClick={this.getLocalDump}>getLocalDump</button>
-        
-      </div>
-    );
-  }
-});
-
-
-var YammerAwards = React.createClass({
-  render: function () {
-    var token = document.location.hash.split('=')[1];
-    return (
-      <div>
-        <a href={ "https://www.yammer.com/dialog/oauth?client_id=" + this.props.client_id  + "&redirect_uri=" + window.location.href + "&response_type=token" }>Login</a>
-        <div>Token: {token}</div>
-        <MessageList token={token} />
       </div>
     );
   }
 });
 
 ReactDOM.render(
-    <YammerAwards client_id="l6qqulIRaKKpItaVEyxMw" redirect_uri="http://localhost:3000" />
+    <Messages client_id="l6qqulIRaKKpItaVEyxMw" redirect_uri="http://localhost:3000" />
     , document.getElementById('content'));
