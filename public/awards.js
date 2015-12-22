@@ -28,17 +28,7 @@ var Awards = React.createClass({
 
   getInitialState: function() {
     return {
-      query: `
-var sorted = _.sortBy(messages, function(m){ return m.liked_by.count; });
-var reversed = sorted.reverse();
-_.find(reversed, function(m){
-  if (!_.findWhere(window.users, {id: m.sender_id }))
-    return false;
-  if (m.message_type === 'announcement')
-    return false;
-  return true;
-});
-`,
+      query: '',
       message: {
         liked_by: {}
       },
@@ -57,11 +47,52 @@ _.find(reversed, function(m){
     this.setState({user: u});
   },
 
+  populateQuery: function(value){
+    var q = '';
+
+    if (value.target.value === 'mostPopularThread')
+      q = `// Most popular update.
+var sorted = _.sortBy(messages, function(m){ return m.liked_by.count; });
+var reversed = sorted.reverse();
+_.find(reversed, function(m){
+  if (!_.findWhere(window.users, {id: m.sender_id }))
+    return false;
+  if (m.message_type === 'announcement')
+    return false;
+  
+  return true;
+});
+`;
+
+    if (value.target.value === 'mostPopularReply')
+      q = `// Most popular update.
+var sorted = _.sortBy(messages, function(m){ return m.liked_by.count; });
+var reversed = sorted.reverse();
+_.find(reversed, function(m){
+  if (!_.findWhere(window.users, {id: m.sender_id }))
+    return false;
+  if (m.message_type === 'announcement')
+    return false;
+  if (m.id === m.thread_id)
+    return false;
+
+  return true;
+});
+`;
+
+
+    this.setState({query:q});
+  },
+
   render: function () {
     return (
       <div>
         <div>
-          <textarea id="txtQuery" rows="15" cols="100" onChange={this.handleChange}>{this.state.query}</textarea>;
+          <button value="mostPopularThread" onClick={this.populateQuery}>Most Popular Thread</button>
+          <button value="mostPopularReply" onClick={this.populateQuery}>Most Popular Reply</button>
+        </div>
+        <div>
+          <textarea id="txtQuery" rows="15" cols="100" onChange={this.handleChange} value={this.state.query}></textarea>;
         </div>
         <div>
           <button onClick={this.calculate}>calculate</button>
