@@ -72,7 +72,6 @@ var Messages = React.createClass({
   cleanMessages: function(messages){
     return messages.map((item, i) => {
       delete item.body;
-      delete item.content_excerpt;
       delete item.attachments;
       return item;
     });
