@@ -1,13 +1,13 @@
 // 01. The Firestarter. "I start big conversations."
 // 02. The Replier. "I don't start many conversations but my replies pack heat."
 // 03. The Articulation. "I'm short with my words but I get to the point."
-// 04. The Silent Assassin. "I don't post often but when I do people love it."
+// 04. The Silent Train. "I don't post often but when I do people love it."
 // 05. The Noisy Train. "I'm basically posting all the time."
 // 06. The Dice. "I post random stuff."
-// 07. The Night Owl. "I operate under the cover of darkness."
-// 08. The Multi Tasker. "I'm on yammer when I really should be at work.
-// 09. The Adorer. "I like everything."
-// 10. The 
+// 07. The Night Owl. "I only ever post under the cover of darkness."
+// 08. The Multi Tasker. "I'm only yammer when I really should be at work.
+// 09. The Adorer. "I don't write but I like everything."
+// 10. The One Hit Wonder: "I post once a year and when I do it's awesome."
 
 /*
 var sorted = _.sortBy(messages, function(m){ return m.liked_by.count; });
@@ -50,8 +50,8 @@ var Awards = React.createClass({
   populateQuery: function(value){
     var q = '';
 
-    if (value.target.value === 'mostPopularThread')
-      q = `// Most popular update.
+    if (value.target.value === 'firestarter')
+      q = `// firestarter
 var sorted = _.sortBy(messages, function(m){ return m.liked_by.count; });
 var reversed = sorted.reverse();
 _.find(reversed, function(m){
@@ -59,13 +59,14 @@ _.find(reversed, function(m){
     return false;
   if (m.message_type === 'announcement')
     return false;
-  
+
   return true;
 });
 `;
 
-    if (value.target.value === 'mostPopularReply')
-      q = `// Most popular update.
+
+    if (value.target.value === 'replier')
+      q = `// replier
 var sorted = _.sortBy(messages, function(m){ return m.liked_by.count; });
 var reversed = sorted.reverse();
 _.find(reversed, function(m){
@@ -75,11 +76,46 @@ _.find(reversed, function(m){
     return false;
   if (m.id === m.thread_id)
     return false;
-
-  return true;
 });
 `;
 
+
+    if (value.target.value === 'nightOwl')
+      q = `// nightOwl
+var dayMessages = _.filter(messages, function(m){
+  var h = new Date(m.created_at).getHours();
+  if (h > 6 && h < 22)
+    return true;
+});
+console.log('dayMessages: ' + dayMessages.length);
+
+var nightMessages = _.filter(messages, function(m){
+  var h = new Date(m.created_at).getHours();
+  if (h <= 6 || h >= 22)
+    return true;
+});
+console.log('nightMessages: ' + nightMessages.length);
+
+var nightUsers = _.filter(users, function(u){
+  var isDayUser = _.findWhere(dayMessages, { sender_id: u.id });
+  var isNightUser = _.findWhere(nightMessages, { sender_id: u.id });
+
+  if (isNightUser && !isDayUser)
+    return true;
+});
+
+console.log('nightUsers: ' + nightUsers.length);
+
+var m = {
+  sender_id : nightUsers[0].id,
+  liked_by: {
+    count: 0
+  }
+};
+
+m;
+
+`;
 
     this.setState({query:q});
   },
@@ -88,8 +124,9 @@ _.find(reversed, function(m){
     return (
       <div>
         <div>
-          <button value="mostPopularThread" onClick={this.populateQuery}>Most Popular Thread</button>
-          <button value="mostPopularReply" onClick={this.populateQuery}>Most Popular Reply</button>
+          <button value="firestarter" onClick={this.populateQuery}>firestarter</button>
+          <button value="replier" onClick={this.populateQuery}>replier</button>
+          <button value="nightOwl" onClick={this.populateQuery}>nightOwl</button>
         </div>
         <div>
           <textarea id="txtQuery" rows="15" cols="100" onChange={this.handleChange} value={this.state.query}></textarea>;
