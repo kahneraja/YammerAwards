@@ -1,42 +1,45 @@
-Congratulations to our Yammer Award Winners for 2015. May your Yammer efforts remain celebrated for many years to come.
+Happy New Year! Here you have it, my 2015 Readify Yammer Award Winners.
 
-# "Popular" Award: Luke Drumm 
-I post about all sorts of interesting stuff and my fans can't get enough of it.
+# "Random Spark" Award: Luke Drumm  
+I post about all sorts of unusual and interesting things and my fans can't get enough of it.
 
 "My difficult relationship with anything branded with the Skype logo continues..."
 https://www.yammer.com/readify.net/messages/620242988
 Tech Help - November 26 at 1:46pm
 
-# "Informative" Award: Tatham Oddie 
-I start engaging discussions.
+# "Spammer" Award: Tatham Oddie 
+I posted 574 messages on Yammer in 2015. My rival Luke Drumm is a distant 2nd with 432 posts.
 
 "Cortana's getting smart. She just worked out that I had some CRM data in Power BI, and started throwing out quick answers for me."
 https://www.yammer.com/readify.net/messages/630780476
  Sales & Marketing - December 21 at 5:44pm
 
-# "Most Liked Post" Award: Bria Madgen 
-Creator of the most like post.
+# "Hot Thread" Award: Bria Madgen 
+Creator of the most liked conversation.
 
 "Congratulations to Eric The and his wife JoJo on the birth of their gorgeous baby boy Quinten! See gorgeous pic attached!!"
 https://www.yammer.com/readify.net/messages/541411836
 Readify NSW - May 28 at 11:26am
 
-# "Answers" Award: Richard Banks 
+# "Best Answer" Award: Richard Banks 
 Creator of most liked reply.
 
 "The data has to travel a long way from Europe and may have been misplaced. Have you checked with lost luggage for those spaces?"
 https://www.yammer.com/readify.net/messages/619513517
 All Company - November 25 at 7:26am
 
-# "Bang for Buck" Award:
-I write short and sweet.
+# "Bang for Buck" Award: Quinten Miller  
+Most liked post in under 140 characters.
 
+"Moving the vinyl collection from Kle Miller's house to mine... one of three loads from the car :)"
+https://www.yammer.com/readify.net/messages/486742950
+Trance Lovers - January 16 at 3:50pm
 
 And finally...
 
 # "2015 Yammer King" Award: Rob Moore 
-Most engaged contributor across all groups and conversations. All round Yammer champion. Thank you!
+Most supportive and engaging contributor across all groups and conversations. All round Yammer champion.
 
-Happy New Year and all the best for 2016.
+Happy holidays and all the best for 2016.
 
-These awards are automatically calculated using a hack JavaScript rest client app I wrote the other day. Please don't hesitate to get in touch for more info.
+These awards are automatically calculated using a hack JavaScript rest client when I was a bit hungover.
