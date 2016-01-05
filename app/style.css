@@ -1,0 +1,12 @@
+html {
+	color: darkslategray;
+	background-color: #fffefd;
+}
+
+body {
+	padding-top: 10px;
+}
+
+.header{
+	margin-top: 100px;
+}
