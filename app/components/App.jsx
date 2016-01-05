@@ -111,12 +111,16 @@ module.exports = React.createClass({
 		return groups;
 	},		
 
+	onClick: function(){
+		console.log('click');
+	},
+
 	render: function(){
 		return (
 			<div>
 				<div className="row">
 					<div className="col-md-12">
-						<Token client_id="l6qqulIRaKKpItaVEyxMw"/>
+						<Token />
 					</div>
 				</div>
 				{ this.state.isReady ?

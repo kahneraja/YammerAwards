@@ -30,6 +30,10 @@ gulp.task('temp',function(){
 		.pipe(gulp.dest("./dist"));	
 });
 
-gulp.task('serve', ['bundle','temp'], function() {
+gulp.task('observe-all',function(){
+	gulp.watch('app/**/*.*',['bundle', 'temp']);
+});
+
+gulp.task('serve', ['bundle','temp','observe-all'], function() {
 	server.run(['server/main.js']);
 });

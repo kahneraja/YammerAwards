@@ -4,6 +4,7 @@ var $ = require('jquery');
 var HarvestMessages = require('./HarvestMessages.jsx');
 var HarvestUsers = require('./HarvestUsers.jsx');
 var HarvestGroups = require('./HarvestGroups.jsx');
+var config = require('./config.js');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -42,7 +43,7 @@ module.exports = React.createClass({
 					<div className="col-md-12">
 					{ !this.state.token ? 
 						<div className="btn-group">
-							<a className="btn btn-default" href={ "https://www.yammer.com/dialog/oauth?client_id=" + this.props.client_id  + "&redirect_uri=" + window.location.href + "&response_type=token" }>Login</a>
+							<a className="btn btn-default" href={ "https://www.yammer.com/dialog/oauth?client_id=" + config.getClientID()  + "&redirect_uri=" + window.location.href + "&response_type=token" }>Login</a>
 						</div>
 					: null }
 					{ this.state.current ? 
