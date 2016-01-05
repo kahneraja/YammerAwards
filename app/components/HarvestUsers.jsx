@@ -23,7 +23,7 @@ module.exports = React.createClass({
 		}
 
 		return {
-			pageIndex: length / pageSize,
+			pageIndex: length,
 			length: length,
 			isComplete: isComplete,
 			localStorageKey: localStorageKey,

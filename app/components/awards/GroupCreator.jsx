@@ -67,10 +67,10 @@ module.exports = React.createClass({
 					  	{ this.state.isReady ?
 					  		<div>
 							  	<div className="row">
-							  		<div className="col-md-3">
+							  		<div className="col-md-12">
 							  			<img src={this.state.mugshot} alt=""/>
 							  		</div>
-							  		<div className="col-md-9">
+							  		<div className="col-md-12">
 									  	<p>
 									  		{this.state.full_name}
 									  	</p>							  		

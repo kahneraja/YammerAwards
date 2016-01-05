@@ -48,9 +48,15 @@ module.exports = React.createClass({
 					: null }
 					{ this.state.current ? 
 					<div className="row">
-						<HarvestMessages token={this.state.token} /> 
-						<HarvestUsers token={this.state.token} />
-						<HarvestGroups token={this.state.token} />
+						<div className="col-md-4">
+							<HarvestMessages token={this.state.token} /> 
+						</div>
+						<div className="col-md-4">
+							<HarvestUsers token={this.state.token} />
+						</div>
+						<div className="col-md-4">
+							<HarvestGroups token={this.state.token} />
+						</div>
 					</div>
 					: null }						
 					</div>

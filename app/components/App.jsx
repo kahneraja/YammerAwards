@@ -20,6 +20,11 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
+		this.calculate();
+		setTimeout(function(){ this.calculate(); }.bind(this), 15000);
+	},
+
+	calculate:function(){
 		var users = this.getUsers();
 		var messages = this.getMessages(users);
 		var groups = this.getGroups(messages, users);
@@ -111,10 +116,6 @@ module.exports = React.createClass({
 		return groups;
 	},		
 
-	onClick: function(){
-		console.log('click');
-	},
-
 	render: function(){
 		return (
 			<div>
@@ -124,13 +125,21 @@ module.exports = React.createClass({
 					</div>
 				</div>
 				{ this.state.isReady ?
-				<div className="row">
-					<div className="col-md-12">
-						<BangForBuck users={this.state.users} messages={this.state.messages} />
-						<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} />
-						<ILikeYou users={this.state.users} messages={this.state.messages} />
-					</div>
+				<div>
+
+					<div className="row">
+						<div className="col-md-4">
+							<BangForBuck users={this.state.users} messages={this.state.messages} />
+						</div>
+						<div className="col-md-4">
+							<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} />
+						</div>
+						<div className="col-md-4">
+							<ILikeYou users={this.state.users} messages={this.state.messages} />
+						</div>
+					</div>						
 				</div>
+
 				: null }
 			</div>
 		)
