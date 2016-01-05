@@ -21,19 +21,22 @@ module.exports = React.createClass({
 
 	componentDidMount: function() {
 		this.calculate();
-		setTimeout(function(){ this.calculate(); }.bind(this), 15000);
 	},
 
 	calculate:function(){
 		var users = this.getUsers();
 		var messages = this.getMessages(users);
 		var groups = this.getGroups(messages, users);
+
+		if (!users || !messages || !groups)
+			return;
+
 		this.setState({users: users});
 		this.setState({groups: groups});
 		this.setState({messages: messages});
+		this.setState({isReady: true});
 
-		if(users.length && messages.length)
-			this.setState({isReady: true});
+		setTimeout(function(){ this.calculate(); }.bind(this), 15000);
 	},
 
 	getUsers: function(){
