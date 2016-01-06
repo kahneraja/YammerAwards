@@ -155,8 +155,9 @@ module.exports = React.createClass({
 		var items = json.concat(messages);
 		var data = JSON.stringify(items);
 		localStorage.setItem("yammer-messages", lzString.compress(data));
-
 		this.setState({length: items.length});
+
+		this.props.onUpdate();
 
 		return items[items.length - 1];
 	},

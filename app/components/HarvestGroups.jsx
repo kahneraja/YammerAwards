@@ -112,6 +112,7 @@ module.exports = React.createClass({
 
 		this.setState({length: items.length});
 
+		this.props.onUpdate();
 		return items[items.length - 1];
 	},
 

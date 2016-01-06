@@ -5,9 +5,15 @@ var ReactDOM = require('react-dom');
 var lzString = require('lz-string');
 var _ = require('underscore');
 var Token = require("./Token.jsx");
+var HarvestMessages = require('./HarvestMessages.jsx');
+var HarvestUsers = require('./HarvestUsers.jsx');
+var HarvestGroups = require('./HarvestGroups.jsx');
 var BangForBuck = require('./awards/BangForBuck.jsx');
 var GroupCreator = require('./awards/GroupCreator.jsx');
 var ILikeYou = require('./awards/ILikeYou.jsx');
+var Silent = require('./awards/Silent.jsx');
+var Contributor = require('./awards/Contributor.jsx');
+var Batman = require('./awards/Batman.jsx');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -15,7 +21,8 @@ module.exports = React.createClass({
 			users: [],
 			messages: [],
 			groups: [],
-			isReady: false
+			isReady: false,
+			token: document.location.hash.split('=')[1]
 		};
 	},
 
@@ -35,8 +42,6 @@ module.exports = React.createClass({
 		this.setState({groups: groups});
 		this.setState({messages: messages});
 		this.setState({isReady: true});
-
-		setTimeout(function(){ this.calculate(); }.bind(this), 15000);
 	},
 
 	getUsers: function(){
@@ -88,6 +93,11 @@ module.exports = React.createClass({
 							return b;
 					});
 				};
+
+				a.messages = function(){
+					return _.filter(messages, {sender_id: a.id});
+				};
+
 				return a;
 			})
 			.value();			
@@ -117,33 +127,63 @@ module.exports = React.createClass({
 			.value();
 
 		return groups;
-	},		
+	},
+
+	handleUpdate: function(){
+		this.calculate();
+		this.refs.bangForBuck.calculate();
+		this.refs.groupCreator.calculate();
+		this.refs.iLikeYou.calculate();
+		this.refs.silent.calculate();
+		this.refs.contributor.calculate();
+		this.refs.batman.calculate();
+	},	
 
 	render: function(){
 		return (
 			<div>
+				{ !this.state.token ? 
 				<div className="row">
 					<div className="col-md-12">
 						<Token />
 					</div>
 				</div>
-				{ this.state.isReady ?
+				: null }
+				<div className="row">
+					<div className="col-md-4">
+						<HarvestMessages token={this.state.token} onUpdate={this.handleUpdate}/> 
+					</div>
+					<div className="col-md-4">
+						<HarvestUsers token={this.state.token} onUpdate={this.handleUpdate} />
+					</div>
+					<div className="col-md-4">
+						<HarvestGroups token={this.state.token} onUpdate={this.handleUpdate} />
+					</div>
+				</div>
 				<div>
-
 					<div className="row">
 						<div className="col-md-4">
-							<BangForBuck users={this.state.users} messages={this.state.messages} />
+							<BangForBuck users={this.state.users} messages={this.state.messages} ref="bangForBuck" />
 						</div>
 						<div className="col-md-4">
-							<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} />
+							<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} ref="groupCreator" />
 						</div>
 						<div className="col-md-4">
-							<ILikeYou users={this.state.users} messages={this.state.messages} />
+							<ILikeYou users={this.state.users} messages={this.state.messages} ref="iLikeYou" />
 						</div>
-					</div>						
+					</div>					
+					<div className="row">
+						<div className="col-md-4">
+							<Silent users={this.state.users} ref="silent" />
+						</div>
+						<div className="col-md-4">
+							<Contributor users={this.state.users} ref="contributor" />
+						</div>
+						<div className="col-md-4">
+							<Batman users={this.state.users} ref="batman" />
+						</div>
+					</div>
 				</div>
-
-				: null }
 			</div>
 		)
 	}

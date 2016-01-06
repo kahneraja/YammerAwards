@@ -110,6 +110,7 @@ module.exports = React.createClass({
 		localStorage.setItem(this.state.localStorageKey, lzString.compress(data));
 
 		this.setState({length: items.length});
+		this.props.onUpdate();
 
 		return items[items.length - 1];
 	},

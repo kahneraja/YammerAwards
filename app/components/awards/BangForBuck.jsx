@@ -18,11 +18,14 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		setTimeout(function(){ this.calculate(); }.bind(this), 0);
+		this.calculate();
 	},	
 
 
 	calculate: function(){
+		if (!this.props.users.length || !this.props.messages.length)
+			return;
+		
 		var message = _.chain(this.props.messages)
 			.filter(function(a){
 				if (a.content_excerpt.length <  140)

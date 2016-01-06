@@ -9,38 +9,38 @@ module.exports = React.createClass({
 		return {
 			name: '',
 			web_url: '',
+			content_excerpt: '',
 			created_at: '',
+			likes: '',
 			mugshot: '',
 			isReady: false
 		};
 	},
 
 	componentDidMount: function() {
-		this.calculate();		
-	},
+		this.calculate();
+	},	
+
 
 	calculate: function(){
-		if (!this.props.users.length || !this.props.groups.length)		
+		if (!this.props.users.length)
 			return;
 		
-		var group = _.chain(this.props.groups)
-			.filter(function(a){
-				var totalDays = 365;
-				var startDate = new Date();
-				startDate.setDate(startDate.getDate() - totalDays);				
-				var d = new Date(a.created_at);
-				if (d > startDate)
-					return a;
+		var user = _.chain(this.props.users)
+			.filter(function(user){
+				var dayMessages = _.filter(user.messages(), function(message){
+					var d = new Date(message.created_at);
+					var hour = d.getHours();
+					if ((hour > 7 && hour < 12) || (hour >= 1 && hour <= 19)) // 7AM to 7PM
+						return message;
+				});
+				if (!dayMessages.length)
+					return user;
 			})
-			.sortBy(function(a){
-				return a.messages().length;
+			.sortBy(function(user){
+				return user.messages().length;
 			})
 			.last()
-			.value();
-
-		var user = _.chain(this.props.users)
-			.where({ id: group.creator_id })
-			.first()
 			.value();
 
 		var mugshot = user.mugshot_url_template;
@@ -48,13 +48,10 @@ module.exports = React.createClass({
 		mugshot = mugshot.replace('{height}', 150);
 
 		this.setState({full_name : user.full_name});
-		this.setState({group_name : group.full_name});
 		this.setState({mugshot : mugshot});
-		this.setState({web_url : group.web_url});
-		this.setState({content_excerpt : group.title});
-		this.setState({created_at : group.created_at});
-		this.setState({messages : group.messages().length});
+		this.setState({messages : user.messages().length});
 		this.setState({isReady: true});
+
 	},
 
 	render: function(){
@@ -63,10 +60,10 @@ module.exports = React.createClass({
 				<div className="col-md-12">
 					<div className="panel panel-default">
 					  <div className="panel-heading">
-					  	Group Creator Award: <span>{this.state.full_name}</span>
+					  	Batman Award: <span>{this.state.full_name}</span>
 					  </div>
 					  <div className="panel-body">
-					  	<p>Creator of most popular new group.</p>
+					  	<p>I only ever post at night.</p>
 					  	{ this.state.isReady ?
 					  		<div>
 							  	<div className="row">
@@ -74,21 +71,11 @@ module.exports = React.createClass({
 							  			<img src={this.state.mugshot} alt=""/>
 							  		</div>
 							  		<div className="col-md-12">
-									  	<p>
-									  		{this.state.full_name}
-									  	</p>							  		
-									  	<p>
-									  		<a href={this.state.web_url} target="_blank">{this.state.group_name}</a>
-									  	</p>
-									  	<p>
+										<p>
 									  		Messages: {this.state.messages}
-									  	</p>
-									  	<p>
-									  		<span>{this.state.created_at}</span>
 									  	</p>
 							  		</div>
 							  	</div>
-
 						  	</div>
 					  	: null }	
 					  </div>

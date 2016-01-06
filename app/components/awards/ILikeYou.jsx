@@ -18,11 +18,14 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		setTimeout(function(){ this.calculate(); }.bind(this), 0);
+		this.calculate();			
 	},	
 
 
 	calculate: function(){
+		if (!this.props.users.length)
+			return;
+		
 		var user = _.chain(this.props.users)
 			.sortBy(function(a){
 				return a.likedMessages().length;
@@ -49,7 +52,7 @@ module.exports = React.createClass({
 					  	I Like You Award: <span>{this.state.full_name}</span>
 					  </div>
 					  <div className="panel-body">
-					  	<p>Shows most support by liking your work.</p>
+					  	<p>I like you more than you like me.</p>
 					  	{ this.state.isReady ?
 					  		<div>
 							  	<div className="row">
