@@ -149,41 +149,45 @@ module.exports = React.createClass({
 					</div>
 				</div>
 				: null }
-				<div className="row">
-					<div className="col-md-4">
-						<HarvestMessages token={this.state.token} onUpdate={this.handleUpdate}/> 
-					</div>
-					<div className="col-md-4">
-						<HarvestUsers token={this.state.token} onUpdate={this.handleUpdate} />
-					</div>
-					<div className="col-md-4">
-						<HarvestGroups token={this.state.token} onUpdate={this.handleUpdate} />
-					</div>
-				</div>
+				{ this.state.token ? 
 				<div>
 					<div className="row">
 						<div className="col-md-4">
-							<BangForBuck users={this.state.users} messages={this.state.messages} ref="bangForBuck" />
+							<HarvestMessages token={this.state.token} onUpdate={this.handleUpdate}/> 
 						</div>
 						<div className="col-md-4">
-							<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} ref="groupCreator" />
+							<HarvestUsers token={this.state.token} onUpdate={this.handleUpdate} />
 						</div>
 						<div className="col-md-4">
-							<ILikeYou users={this.state.users} messages={this.state.messages} ref="iLikeYou" />
+							<HarvestGroups token={this.state.token} onUpdate={this.handleUpdate} />
 						</div>
-					</div>					
-					<div className="row">
-						<div className="col-md-4">
-							<Silent users={this.state.users} ref="silent" />
-						</div>
-						<div className="col-md-4">
-							<Contributor users={this.state.users} ref="contributor" />
-						</div>
-						<div className="col-md-4">
-							<Batman users={this.state.users} ref="batman" />
+					</div>
+					<div>
+						<div className="row">
+							<div className="col-md-4">
+								<BangForBuck users={this.state.users} messages={this.state.messages} ref="bangForBuck" />
+							</div>
+							<div className="col-md-4">
+								<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} ref="groupCreator" />
+							</div>
+							<div className="col-md-4">
+								<ILikeYou users={this.state.users} messages={this.state.messages} ref="iLikeYou" />
+							</div>
+						</div>					
+						<div className="row">
+							<div className="col-md-4">
+								<Silent users={this.state.users} ref="silent" />
+							</div>
+							<div className="col-md-4">
+								<Contributor users={this.state.users} ref="contributor" />
+							</div>
+							<div className="col-md-4">
+								<Batman users={this.state.users} ref="batman" />
+							</div>
 						</div>
 					</div>
 				</div>
+				: null}
 			</div>
 		)
 	}
