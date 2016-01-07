@@ -193,7 +193,6 @@ module.exports = React.createClass({
 		return (
 			<div>
 				<div className="col-md-12">
-
 					<div className="panel panel-default">
 					  <div className="panel-heading">Messages</div>
 					  <div className="panel-body">
@@ -203,8 +202,8 @@ module.exports = React.createClass({
 						  </div>
 						</div>
 					  </div>
-
-					  <ul className="list-group">
+					  <ul className="list-group"> 
+					  	<li className="list-group-item list-group-item-danger">This can take hours...</li>
 					    <li className="list-group-item">
 							<div className="btn-group">
 								{ this.state.length ?

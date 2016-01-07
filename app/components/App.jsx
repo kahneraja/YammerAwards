@@ -42,6 +42,15 @@ module.exports = React.createClass({
 		this.setState({groups: groups});
 		this.setState({messages: messages});
 		this.setState({isReady: true});
+
+		setTimeout(function(){
+			this.refs.bangForBuck.calculate();
+			this.refs.groupCreator.calculate();
+			this.refs.iLikeYou.calculate();
+			this.refs.silent.calculate();
+			this.refs.contributor.calculate();
+			this.refs.batman.calculate();
+		}.bind(this), 1000);		
 	},
 
 	getUsers: function(){
@@ -131,12 +140,6 @@ module.exports = React.createClass({
 
 	handleUpdate: function(){
 		this.calculate();
-		this.refs.bangForBuck.calculate();
-		this.refs.groupCreator.calculate();
-		this.refs.iLikeYou.calculate();
-		this.refs.silent.calculate();
-		this.refs.contributor.calculate();
-		this.refs.batman.calculate();
 	},	
 
 	render: function(){
@@ -161,6 +164,9 @@ module.exports = React.createClass({
 						<div className="col-md-4">
 							<HarvestGroups token={this.state.token} onUpdate={this.handleUpdate} />
 						</div>
+					</div>
+					<div className="row">
+						<div className="alert alert-info" role="alert">Harvest some data and you'll start seeing some awards appearing.</div>
 					</div>
 					<div>
 						<div className="row">
