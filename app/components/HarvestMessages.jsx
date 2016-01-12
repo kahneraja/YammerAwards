@@ -3,6 +3,9 @@ var ReactDOM = require('react-dom');
 var lzString = require('lz-string');
 var $ = require('jquery');
 var _ = require('underscore');
+var linkify = require('linkifyjs');
+var hashtags = require('hashtags');
+var wordcount = require('wordcount');
 
 module.exports = React.createClass({
 
@@ -114,6 +117,15 @@ module.exports = React.createClass({
 		});
 	},
 
+	enhance: function(messages){
+		return _.map(messages, function(m){
+			m.links = linkify.find(m.body.plain);
+			m.hashtags = hashtags(m.body.plain);
+			m.wordCount = wordcount(m.body.plain);
+			return m;
+		});
+	},	
+
 	compress: function(messages){
 		return _.map(messages, function(m){
 			delete m.body;
@@ -133,7 +145,8 @@ module.exports = React.createClass({
 	},
 
 	process: function(messages){
-		var compressed = this.compress(messages);
+		var enhanced = this.enhance(messages);
+		var compressed = this.compress(enhanced);
 		var filtered = this.filter(compressed);
 
 		if (filtered.length === 0)

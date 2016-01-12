@@ -14,6 +14,9 @@ var ILikeYou = require('./awards/ILikeYou.jsx');
 var Silent = require('./awards/Silent.jsx');
 var Contributor = require('./awards/Contributor.jsx');
 var Batman = require('./awards/Batman.jsx');
+var Hashtagger = require('./awards/Hashtagger.jsx');
+var Linkaholic = require('./awards/Linkaholic.jsx');
+var Rambling = require('./awards/Rambling.jsx');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -50,6 +53,9 @@ module.exports = React.createClass({
 			this.refs.silent.calculate();
 			this.refs.contributor.calculate();
 			this.refs.batman.calculate();
+			this.refs.hashtagger.calculate();
+			this.refs.linkaholic.calculate();
+			this.refs.rambling.calculate();
 		}.bind(this), 1000);		
 	},
 
@@ -106,6 +112,23 @@ module.exports = React.createClass({
 				a.messages = function(){
 					return _.filter(messages, {sender_id: a.id});
 				};
+
+				a.hashtags = _.reduce(a.messages(), function(collection, item){
+					if (item.hashtags)
+						collection = collection.concat(item.hashtags);
+					return collection;
+				}, []);
+
+
+				a.links = _.reduce(a.messages(), function(collection, item){
+					if (item.links)
+						collection = collection.concat(item.links);
+					return collection;
+				}, []);
+
+				a.accumulatedWordCount = _.reduce(a.messages(), function(wordCount, item){
+					return wordCount + item.wordCount;
+				}, 0);				
 
 				return a;
 			})
@@ -166,21 +189,21 @@ module.exports = React.createClass({
 						</div>
 					</div>
 					<div className="row">
-						<div className="alert alert-info" role="alert">Harvest some data and you'll start seeing some awards appearing.</div>
+						<div className="alert alert-info" role="alert">Harvest data to see awards appearing.</div>
 					</div>
 					<div>
 						<div className="row">
 							<div className="col-md-4">
 								<BangForBuck users={this.state.users} messages={this.state.messages} ref="bangForBuck" />
 							</div>
+
 							<div className="col-md-4">
 								<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} ref="groupCreator" />
 							</div>
+							
 							<div className="col-md-4">
 								<ILikeYou users={this.state.users} messages={this.state.messages} ref="iLikeYou" />
 							</div>
-						</div>					
-						<div className="row">
 							<div className="col-md-4">
 								<Silent users={this.state.users} ref="silent" />
 							</div>
@@ -190,7 +213,16 @@ module.exports = React.createClass({
 							<div className="col-md-4">
 								<Batman users={this.state.users} ref="batman" />
 							</div>
-						</div>
+							<div className="col-md-4">
+								<Hashtagger users={this.state.users} ref="hashtagger" />
+							</div>
+							<div className="col-md-4">
+								<Linkaholic users={this.state.users} ref="linkaholic" />
+							</div>					
+							<div className="col-md-4">
+								<Rambling users={this.state.users} ref="rambling" />
+							</div>
+						</div>						
 					</div>
 				</div>
 				: null}

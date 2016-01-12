@@ -57,30 +57,22 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<div className="col-md-12">
-					<div className="panel panel-default">
-					  <div className="panel-heading">
-					  	Batman Award: <span>{this.state.full_name}</span>
-					  </div>
-					  <div className="panel-body">
-					  	<p>I only ever post at night.</p>
-					  	{ this.state.isReady ?
-					  		<div>
-							  	<div className="row">
-							  		<div className="col-md-12">
-							  			<img src={this.state.mugshot} alt=""/>
-							  		</div>
-							  		<div className="col-md-12">
-										<p>
-									  		Messages: {this.state.messages}
-									  	</p>
-							  		</div>
-							  	</div>
-						  	</div>
-					  	: null }	
-					  </div>
+			  	{ this.state.isReady ?
+			  		<div className="media">
+						<div className="media-left">
+							<a href="#">
+								<img className="media-object" width="50" src={this.state.mugshot} alt="..." />
+							</a>
+						</div>
+						<div className="media-body">
+							<h4 className="media-heading">Batman Award: {this.state.full_name}</h4>
+						  		<p>I only ever post at night.</p>
+						  		<p>
+						  			Messages <span className="badge">{this.state.messages}</span>
+						  		</p>							  		
+						</div>
 					</div>
-				</div>
+			  	: null }
 			</div>
 		)
 	}

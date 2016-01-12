@@ -60,40 +60,23 @@ module.exports = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<div className="col-md-12">
-					<div className="panel panel-default">
-					  <div className="panel-heading">
-					  	Group Creator Award: <span>{this.state.full_name}</span>
-					  </div>
-					  <div className="panel-body">
-					  	<p>Creator of most popular new group.</p>
-					  	{ this.state.isReady ?
-					  		<div>
-							  	<div className="row">
-							  		<div className="col-md-12">
-							  			<img src={this.state.mugshot} alt=""/>
-							  		</div>
-							  		<div className="col-md-12">
-									  	<p>
-									  		{this.state.full_name}
-									  	</p>							  		
-									  	<p>
-									  		<a href={this.state.web_url} target="_blank">{this.state.group_name}</a>
-									  	</p>
-									  	<p>
-									  		Messages: {this.state.messages}
-									  	</p>
-									  	<p>
-									  		<span>{this.state.created_at}</span>
-									  	</p>
-							  		</div>
-							  	</div>
-
-						  	</div>
-					  	: null }	
-					  </div>
+			  	{ this.state.isReady ?
+			  		<div className="media">
+						<div className="media-left">
+							<a href="#">
+								<img className="media-object" width="50" src={this.state.mugshot} alt="..." />
+							</a>
+						</div>
+						<div className="media-body">
+							<h4 className="media-heading">Group Creator Award: {this.state.full_name}</h4>
+						  		<p>Creator of most popular new group.</p>
+						  		<p><a href={this.state.web_url} target="_blank">{this.state.group_name}</a></p>
+						  		<p>
+						  			Messages <span className="badge">{this.state.messages}</span>
+						  		</p>						  		
+						</div>
 					</div>
-				</div>
+			  	: null }	
 			</div>
 		)
 	}

@@ -18,21 +18,17 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.calculate();	
+		this.calculate();
 	},	
 
 
 	calculate: function(){
-		if (!this.props.users.length)		
+		if (!this.props.users.length)
 			return;
-
+		
 		var user = _.chain(this.props.users)
-			.filter(function(a){
-				if (a.messages().length === 0)
-					return a;
-			})
 			.sortBy(function(a){
-				return a.likedMessages().length;
+				return a.hashtags.length;
 			})
 			.last()
 			.value();
@@ -43,8 +39,7 @@ module.exports = React.createClass({
 
 		this.setState({full_name : user.full_name});
 		this.setState({mugshot : mugshot});
-		this.setState({likes : user.likedMessages().length});
-		this.setState({messages : user.messages().length});
+		this.setState({hashtags : user.hashtags.length});
 		this.setState({isReady: true});
 	},
 
@@ -59,14 +54,11 @@ module.exports = React.createClass({
 							</a>
 						</div>
 						<div className="media-body">
-							<h4 className="media-heading">Silent Assassin Award: {this.state.full_name}</h4>
-						  		<p>I login. I never post.</p>
+							<h4 className="media-heading">Hashtag Champion Award: {this.state.full_name}</h4>
+						  		<p>I like hashtags.</p>
 						  		<p>
-						  			Likes <span className="badge">{this.state.likes}</span>
-						  		</p>
-						  		<p> 
-						  			Messages <span className="badge">{this.state.messages}</span>
-						  		</p>
+						  			Hashtags <span className="badge">{this.state.hashtags}</span> 
+						  		</p>						  		
 						</div>
 					</div>
 			  	: null }	
