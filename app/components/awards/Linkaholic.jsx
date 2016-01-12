@@ -18,21 +18,17 @@ module.exports = React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.calculate();	
+		this.calculate();
 	},	
 
 
 	calculate: function(){
-		if (!this.props.users.length)		
+		if (!this.props.users.length)
 			return;
-
+		
 		var user = _.chain(this.props.users)
-			.filter(function(a){
-				if (a.messages().length === 0)
-					return a;
-			})
 			.sortBy(function(a){
-				return a.likedMessages().length;
+				return a.links.length;
 			})
 			.last()
 			.value();
@@ -43,8 +39,7 @@ module.exports = React.createClass({
 
 		this.setState({full_name : user.full_name});
 		this.setState({mugshot : mugshot});
-		this.setState({likes : user.likedMessages().length});
-		this.setState({messages : user.messages().length});
+		this.setState({count : user.links.length});
 		this.setState({isReady: true});
 	},
 
@@ -59,14 +54,11 @@ module.exports = React.createClass({
 							</a>
 						</div>
 						<div className="media-body">
-							<h4 className="media-heading">Silent Assassin Award: {this.state.full_name}</h4>
-						  		<p>I login. I never post.</p>
+							<h4 className="media-heading">Linkaholic Award: {this.state.full_name}</h4>
+						  		<p>When I post I include links all over the place.</p>
 						  		<p>
-						  			Likes <span className="badge">{this.state.likes}</span>
-						  		</p>
-						  		<p> 
-						  			Messages <span className="badge">{this.state.messages}</span>
-						  		</p>
+						  			Links <span className="badge">{this.state.count}</span> 
+						  		</p>						  		
 						</div>
 					</div>
 			  	: null }	

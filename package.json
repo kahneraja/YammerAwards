@@ -19,14 +19,18 @@
     "gulp-ejs": "^1.2.2",
     "gulp-express": "^0.3.5",
     "gulp-live-server": "0.0.29",
+    "hashtags": "^0.2.0",
     "jquery": "^2.1.4",
     "jsoncomp": "^1.6.1",
     "jsonpack": "^1.1.4",
+    "linkifyjs": "^2.0.0-beta.7",
     "lz-string": "^1.4.4",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
+    "react-intl": "^1.2.2",
     "reactify": "^1.1.1",
     "underscore": "^1.8.3",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "wordcount": "^1.1.1"
   }
 }
