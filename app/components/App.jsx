@@ -17,6 +17,7 @@ var Batman = require('./awards/Batman.jsx');
 var Hashtagger = require('./awards/Hashtagger.jsx');
 var Linkaholic = require('./awards/Linkaholic.jsx');
 var Rambling = require('./awards/Rambling.jsx');
+var Fatality = require('./awards/Fatality.jsx');
 
 module.exports = React.createClass({
 	getInitialState: function() {
@@ -56,6 +57,7 @@ module.exports = React.createClass({
 			this.refs.hashtagger.calculate();
 			this.refs.linkaholic.calculate();
 			this.refs.rambling.calculate();
+			this.refs.fatality.calculate();
 		}.bind(this), 1000);		
 	},
 
@@ -84,14 +86,20 @@ module.exports = React.createClass({
 			})			
 			.map(function(a){
 				a.replies = function(){ 
-					return _.filter(messages, function(b){
-						if (b.thread_id === a.id && b.id !== a.id)
-							return b;
-					}); 
+					return _.chain(messages)
+							.filter(function(b){
+								if (b.thread_id === a.id && b.id !== a.id)
+									return b;
+							})
+							.sortBy(function(b){
+								return new Date(b.created_at);
+							})
+							.value(); 
 				};
 				a.likes = function(){
 					return this.liked_by.names.length
 				};
+				a.isThreadStart = (a.thread_id === a.id);				
 				return a;
 			})
 			.value();
@@ -193,35 +201,42 @@ module.exports = React.createClass({
 					</div>
 					<div>
 						<div className="row">
-							<div className="col-md-4">
-								<BangForBuck users={this.state.users} messages={this.state.messages} ref="bangForBuck" />
-							</div>
 
-							<div className="col-md-4">
-								<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} ref="groupCreator" />
-							</div>
+
+
 							
-							<div className="col-md-4">
+							<div className="col-md-6">
 								<ILikeYou users={this.state.users} messages={this.state.messages} ref="iLikeYou" />
 							</div>
-							<div className="col-md-4">
-								<Silent users={this.state.users} ref="silent" />
-							</div>
-							<div className="col-md-4">
-								<Contributor users={this.state.users} ref="contributor" />
-							</div>
-							<div className="col-md-4">
+
+
+							<div className="col-md-6">
 								<Batman users={this.state.users} ref="batman" />
 							</div>
-							<div className="col-md-4">
+							<div className="col-md-6">
 								<Hashtagger users={this.state.users} ref="hashtagger" />
 							</div>
-							<div className="col-md-4">
+							<div className="col-md-6">
 								<Linkaholic users={this.state.users} ref="linkaholic" />
 							</div>					
-							<div className="col-md-4">
+							<div className="col-md-6">
 								<Rambling users={this.state.users} ref="rambling" />
 							</div>
+							<div className="col-md-6">
+								<Fatality users={this.state.users} messages={this.state.messages} ref="fatality" />
+							</div>							
+							<div className="col-md-6">
+								<BangForBuck users={this.state.users} messages={this.state.messages} ref="bangForBuck" />
+							</div>	
+							<div className="col-md-6">
+								<Contributor users={this.state.users} ref="contributor" />
+							</div>
+							<div className="col-md-6">
+								<Silent users={this.state.users} ref="silent" />
+							</div>	
+							<div className="col-md-6">
+								<GroupCreator users={this.state.users} messages={this.state.messages} groups={this.state.groups} ref="groupCreator" />
+							</div>													
 						</div>						
 					</div>
 				</div>
